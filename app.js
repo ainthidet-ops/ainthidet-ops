@@ -79,3 +79,15 @@ function download(content,name,type){const url=URL.createObjectURL(new Blob([con
 function exportArchive(){const rows=[['วันที่','ปีงบประมาณ','ประเภทประวัติ','ประเภทอุปกรณ์','ชื่ออุปกรณ์','สถานที่','รายละเอียด'],...archiveRecords().map(r=>[r.eventDate,r.fiscalYear,r.kindLabel,r.category,deviceLabel(r),r.roomId?roomLabel(r.roomId):r.from+' / '+r.to,r.detail])];const q=v=>'"'+String(v??'').replace(/^[=+@-]/,"'$&").replace(/"/g,'""')+'"';download('\uFEFF'+rows.map(row=>row.map(q).join(',')).join('\r\n'),'school-media-history-'+(archiveYear||'all')+'.csv','text/csv;charset=utf-8')}
 window.addEventListener('storage',event=>{if(event.key!==STORAGE_KEY)return;try{db=loadDatabase();render()}catch(e){toast('ไม่สามารถปรับปรุงข้อมูลได้ กรุณาตรวจสอบข้อมูลที่จัดเก็บ')}});
 render();
+
+// CENTRAL_DATABASE_GATEWAY — preserve all legacy browser storage for recovery.
+const CENTRAL_APP_URL='https://script.google.com/a/macros/sena.ac.th/s/AKfycbwaB3KIoLHwffMDI3dN6mPZG7gOxUEqqUvVTpWsLIZpjancgneMMUw5rghf428R9Eu5/exec';
+render=function(){
+ const total=['buildings','rooms','devices','tickets','surveys','history','moves'].reduce((n,k)=>n+(db[k]?.length||0),0);
+ document.querySelector('#nav').innerHTML='';
+ document.querySelector('.nav-action').style.display='none';
+ document.querySelector('.wordmark').onclick=()=>render();
+ document.querySelector('#app').innerHTML=heading('ระบบบริหารสื่อและเทคโนโลยีโรงเรียน','ใช้งานผ่านฐานข้อมูลกลาง เพื่อให้ข้อมูลต่อเนื่องเมื่อเปลี่ยนอุปกรณ์')+`<section class="panel"><h2>เข้าสู่ระบบฐานข้อมูลกลาง</h2><p>บันทึกทะเบียนอุปกรณ์ ผลสำรวจ และงานซ่อมลงฐานข้อมูลร่วมกัน ระบบจะแสดงผลสำเร็จหลังได้รับการยืนยันการบันทึก</p><p>เปิดด้วย Safari หรือ Chrome และลงชื่อเข้าใช้บัญชี Google ที่ได้รับสิทธิ์ ขณะนี้เปิดใช้งานสำหรับบัญชีเจ้าของระบบ</p><a class="button-link" href="${CENTRAL_APP_URL}" target="_blank" rel="noopener">เข้าสู่ระบบฐานข้อมูลกลาง</a></section><section class="panel"><h2>ข้อมูลเดิมในอุปกรณ์นี้</h2><p>${total?'ตรวจพบข้อมูลเดิม '+total+' รายการ กรุณาสำรองก่อนนำเข้าฐานข้อมูลกลาง':'ไม่พบรายการในพื้นที่จัดเก็บของเบราว์เซอร์นี้ หากเคยกรอกในเบราว์เซอร์หรือแอปอื่น ให้ตรวจจากต้นทางเดิม'}</p><button class="secondary" onclick="exportData()">สำรองข้อมูลเดิม</button><p>ข้อมูลเดิมยังไม่ถูกย้ายอัตโนมัติ การเปิดหน้านี้ไม่มีคำสั่งล้างหรือเขียนทับข้อมูลเดิม</p></section>`;
+ document.querySelector('.utility-bar').lastElementChild.lastElementChild.textContent='ทางเข้าสู่ฐานข้อมูลกลาง';
+ const footer=document.querySelector('.source');footer.querySelector('div:nth-child(2) > p:last-child').textContent='บันทึกข้อมูลใหม่ผ่านระบบฐานข้อมูลกลาง';
+};render();
