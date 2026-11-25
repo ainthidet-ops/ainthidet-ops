@@ -2,100 +2,198 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="ระบบบริหารสื่อและเทคโนโลยีโรงเรียน">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>ระบบบริหารสื่อและเทคโนโลยีโรงเรียน</title>
 
 <style>
-:root{
-  --bg:#f7f7f7;
-  --text:#111;
-  --muted:#666;
-  --accent:#000;
-}
-
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--bg);
-  color:var(--text);
-  font-family:"Noto Sans Thai",sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f5f5f5;
+    color:#111;
 }
 
-.loader-screen{
-  text-align:center;
-  max-width:500px;
-  padding:40px;
+.utility-bar{
+    height:32px;
+    background:#efefef;
+    border-bottom:1px solid #ddd;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    font-size:12px;
+}
+
+.header{
+    background:#fff;
+    border-bottom:1px solid #e5e5e5;
+}
+
+.nav{
+    max-width:1400px;
+    margin:auto;
+    height:84px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
 }
 
 .logo{
-  font-size:48px;
-  font-weight:900;
-  letter-spacing:2px;
-  margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:14px;
 }
 
-.brand{
-  font-size:14px;
-  font-weight:600;
-  letter-spacing:3px;
-  color:var(--muted);
-  margin-bottom:40px;
+.logo-m{
+    font-size:42px;
+    font-weight:900;
 }
 
-h1{
-  font-size:32px;
-  margin-bottom:12px;
+.logo-text{
+    font-weight:800;
+    font-size:18px;
 }
 
-p{
-  color:var(--muted);
-  line-height:1.7;
+.logo-sub{
+    display:block;
+    font-size:11px;
+    color:#666;
+    letter-spacing:1px;
 }
 
-.spinner{
-  width:56px;
-  height:56px;
-  margin:32px auto;
-  border:4px solid #ddd;
-  border-top:4px solid #000;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
+.button{
+    background:#000;
+    color:#fff;
+    border:none;
+    border-radius:999px;
+    padding:14px 28px;
+    font-weight:700;
+}
+
+.container{
+    max-width:1400px;
+    margin:auto;
+    padding:40px 24px;
+}
+
+.hero{
+    height:420px;
+    border-radius:0;
+    overflow:hidden;
+    position:relative;
+    background:
+    linear-gradient(
+      rgba(0,0,0,.55),
+      rgba(0,0,0,.45)
+    ),
+    url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop');
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    position:absolute;
+    left:60px;
+    top:60px;
+    color:white;
+}
+
+.hero-small{
+    font-size:18px;
+    letter-spacing:2px;
+    margin-bottom:12px;
+}
+
+.hero-title{
+    font-size:72px;
+    font-weight:900;
+    line-height:1;
+    margin-bottom:24px;
+}
+
+.hero-desc{
+    font-size:20px;
+    line-height:1.7;
+    opacity:.9;
+}
+
+.loading-panel{
+    margin-top:40px;
+    background:white;
+    border:1px solid #e5e5e5;
+    padding:35px;
+}
+
+.loading-title{
+    font-size:34px;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.loading-sub{
+    color:#666;
+    margin-bottom:30px;
+}
+
+.progress{
+    width:100%;
+    height:10px;
+    background:#ececec;
+    border-radius:999px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#111;
+    animation:loading 3s linear forwards;
 }
 
 .status{
-  margin-top:16px;
-  font-size:14px;
-  color:var(--muted);
+    margin-top:16px;
+    color:#666;
 }
 
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
+@keyframes loading{
+    from{width:0}
+    to{width:100%}
 }
 </style>
 
 <script>
-window.onload = function () {
+window.onload = () => {
 
-  document.getElementById("status").textContent =
-    "กำลังเชื่อมต่อฐานข้อมูลกลาง...";
+    const steps = [
+        "กำลังตรวจสอบระบบ...",
+        "กำลังเชื่อมต่อฐานข้อมูลกลาง...",
+        "กำลังซิงค์ข้อมูลอุปกรณ์...",
+        "กำลังเปิดหน้าหลัก..."
+    ];
 
-  setTimeout(function () {
-    window.location.href =
-      "https://script.google.com/macros/s/AKfycbwaB3KIoLHwffMDI3dN6mPZG7gOxUEqqUvVTpWsLIZpjancgneMMUw5rghf428R9Eu5/exec";
-  }, 2000);
+    let i = 0;
 
+    const timer = setInterval(() => {
+        if(i < steps.length){
+            document.getElementById("status").textContent = steps[i];
+            i++;
+        }
+    },700);
+
+    setTimeout(() => {
+        clearInterval(timer);
+
+        window.location.href =
+        "https://script.google.com/macros/s/AKfycbwaB3KIoLHwffMDI3dN6mPZG7gOxUEqqUvVTpWsLIZpjancgneMMUw5rghf428R9Eu5/exec";
+
+    },3000);
 };
 </script>
 
@@ -103,25 +201,66 @@ window.onload = function () {
 
 <body>
 
-<div class="loader-screen">
+<div class="utility-bar">
+    <span>ระบบบริหารสื่อและเทคโนโลยีโรงเรียน</span>
+    <span>กำลังเชื่อมต่อฐานข้อมูลกลาง</span>
+</div>
 
-  <div class="logo">M</div>
+<header class="header">
+    <div class="nav">
 
-  <div class="brand">
-    MEDIA SCHOOL TECHNOLOGY
-  </div>
+        <div class="logo">
+            <div class="logo-m">M</div>
+            <div>
+                <div class="logo-text">MEDIA</div>
+                <span class="logo-sub">SCHOOL TECHNOLOGY</span>
+            </div>
+        </div>
 
-  <h1>ระบบบริหารสื่อและเทคโนโลยีโรงเรียน</h1>
+        <button class="button">กำลังโหลด...</button>
 
-  <p>
-    ทะเบียนอุปกรณ์ การสำรวจ และติดตามงานซ่อม
-  </p>
+    </div>
+</header>
 
-  <div class="spinner"></div>
+<div class="container">
 
-  <div id="status" class="status">
-    กำลังเตรียมระบบ...
-  </div>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-small">
+                SCHOOL MEDIA MANAGEMENT
+            </div>
+
+            <div class="hero-title">
+                พร้อมสอน<br>
+                พร้อมเรียนรู้
+            </div>
+
+            <div class="hero-desc">
+                ระบบบริหารสื่อ อุปกรณ์ และติดตามงานซ่อม<br>
+                สำหรับสถานศึกษา
+            </div>
+        </div>
+    </section>
+
+    <div class="loading-panel">
+
+        <div class="loading-title">
+            กำลังเข้าสู่ระบบ
+        </div>
+
+        <div class="loading-sub">
+            กรุณารอสักครู่ ระบบจะเปิดหน้าหลักอัตโนมัติ
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+
+        <div class="status" id="status">
+            กำลังเตรียมระบบ...
+        </div>
+
+    </div>
 
 </div>
 
