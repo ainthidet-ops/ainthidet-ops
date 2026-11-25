@@ -1,1 +1,129 @@
-<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="ระบบบริหารจัดการสื่อและเทคโนโลยีโรงเรียน ทะเบียนอุปกรณ์ การสำรวจ และติดตามงานซ่อม"><title>School Media | ระบบบริหารสื่อและเทคโนโลยี</title><link rel="stylesheet" href="styles.css"><script src="app.js" defer></script></head><body><a class="skip-link" href="#app">ข้ามไปยังเนื้อหา</a><aside><div class="utility-bar"><span>ระบบบริหารสื่อและเทคโนโลยีโรงเรียน</span><div><a href="https://drive.google.com/drive/folders/1xT8SimIb5Yo21Elt7asDmtTQRbzf3Bdd" target="_blank" rel="noopener">ศูนย์ข้อมูล</a><span class="utility-divider">|</span><span>ข้อมูลในอุปกรณ์นี้</span></div></div><div class="main-navigation"><button class="wordmark" onclick="go('overview')" aria-label="School Media หน้าหลัก"><svg width="42" height="36" viewBox="0 0 42 36" aria-hidden="true"><path d="M4 28V7h9l8 12L29 7h9v21h-8V17l-9 13-9-13v11H4Z" fill="currentColor"/></svg><span>MEDIA<span class="wordmark-sub">SCHOOL TECHNOLOGY</span></span></button><nav id="nav" aria-label="เมนูหลัก"></nav><button class="nav-action" onclick="repairForm()">แจ้งซ่อม</button></div></aside><main id="main-content"><div id="app"></div><footer class="source"><div class="footer-brand">MEDIA / TECH</div><div><b>ระบบบริหารจัดการสื่อและเทคโนโลยีโรงเรียน</b><p class="developer-credit">ผู้พัฒนาระบบ: <strong>ครูกฤษฎา อินธิเดช</strong></p><p>ข้อมูลที่บันทึกจัดเก็บในอุปกรณ์นี้ การเชื่อมต่อฐานข้อมูลกลางยังไม่เปิดใช้งาน</p></div><button class="secondary" onclick="exportData()">สำรองข้อมูล</button></footer></main><dialog id="modal"></dialog><div id="toast" class="toast hidden" role="status" aria-live="polite"></div></body></html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ระบบบริหารสื่อและเทคโนโลยีโรงเรียน">
+
+<title>ระบบบริหารสื่อและเทคโนโลยีโรงเรียน</title>
+
+<style>
+:root{
+  --bg:#f7f7f7;
+  --text:#111;
+  --muted:#666;
+  --accent:#000;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Noto Sans Thai",sans-serif;
+}
+
+.loader-screen{
+  text-align:center;
+  max-width:500px;
+  padding:40px;
+}
+
+.logo{
+  font-size:48px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:10px;
+}
+
+.brand{
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:3px;
+  color:var(--muted);
+  margin-bottom:40px;
+}
+
+h1{
+  font-size:32px;
+  margin-bottom:12px;
+}
+
+p{
+  color:var(--muted);
+  line-height:1.7;
+}
+
+.spinner{
+  width:56px;
+  height:56px;
+  margin:32px auto;
+  border:4px solid #ddd;
+  border-top:4px solid #000;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+
+.status{
+  margin-top:16px;
+  font-size:14px;
+  color:var(--muted);
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+</style>
+
+<script>
+window.onload = function () {
+
+  document.getElementById("status").textContent =
+    "กำลังเชื่อมต่อฐานข้อมูลกลาง...";
+
+  setTimeout(function () {
+    window.location.href =
+      "https://script.google.com/macros/s/AKfycbwaB3KIoLHwffMDI3dN6mPZG7gOxUEqqUvVTpWsLIZpjancgneMMUw5rghf428R9Eu5/exec";
+  }, 2000);
+
+};
+</script>
+
+</head>
+
+<body>
+
+<div class="loader-screen">
+
+  <div class="logo">M</div>
+
+  <div class="brand">
+    MEDIA SCHOOL TECHNOLOGY
+  </div>
+
+  <h1>ระบบบริหารสื่อและเทคโนโลยีโรงเรียน</h1>
+
+  <p>
+    ทะเบียนอุปกรณ์ การสำรวจ และติดตามงานซ่อม
+  </p>
+
+  <div class="spinner"></div>
+
+  <div id="status" class="status">
+    กำลังเตรียมระบบ...
+  </div>
+
+</div>
+
+</body>
+</html>
